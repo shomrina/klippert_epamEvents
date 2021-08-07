@@ -18,19 +18,23 @@ public class EventsPage extends AbstractPage {
     private By upcomingEventsBntLocator = By.cssSelector("span.evnt-tab-text.desktop");
     private By upcomingEventCounterLocator = By.cssSelector("span.evnt-tab-counter");
     private By eventTabLinkLocator = By.cssSelector("a.evnt-tab-link");
+    private By eventDateLocator = By.cssSelector("div.evnt-event-dates span.date");
 
     public EventsPage(WebDriver driver) {
         super(driver);
     }
 
     public List<WebElement> getAllEventCards() {
-        List<WebElement> eventCard =  getWebElements(eventCardsLocator);
-        return eventCard;
+        waitElementToBeClickable(eventCardsLocator, 5);
+        List<WebElement> eventCards =  getWebElements(eventCardsLocator);
+        log.info("getAllEventCards, number of events = {}", eventCards.size());
+        return eventCards;
     }
 
     public int getNumberUpcomingEvents() {
         if (!isUpcomingEvensActive()) waitElementToBeClickable(upcomingEventsBntLocator, 5).click();
         int expectedCount = Integer.parseInt(getWebElement(upcomingEventCounterLocator).getText()) ;
+        log.info("getNumberUpcomingEvents = {}", expectedCount);
         return expectedCount;
     }
 
@@ -39,6 +43,14 @@ public class EventsPage extends AbstractPage {
         //  log.debug("DEBUG atribute classname = {}", getWebElement(eventTabLinkLocator).getAttribute("class"));
         log.info("button 'Upcoming events' {}", isActive);
         return isActive;
+    }
+
+    public String getDatePeriodForEvent(List<WebElement> eventCards, int id) {
+        //get date periods for the event
+       // List<WebElement> eventCards = this.getAllEventCards();
+        String datePeriodInText = eventCards.get(id).findElement(eventDateLocator).getText();
+        log.debug("event [" + id + "] datePeriodInText = {}", datePeriodInText);
+        return datePeriodInText;
     }
 
 }
