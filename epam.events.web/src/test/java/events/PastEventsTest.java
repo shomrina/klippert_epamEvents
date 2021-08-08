@@ -2,8 +2,13 @@ package events;
 
 import events.pages.EventsPage;
 import events.pages.MainPage;
+import org.apache.logging.log4j.core.util.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 /**
  * PastEventsTest class for testing features linked with past events
@@ -17,7 +22,22 @@ public class PastEventsTest extends BaseTest {
         mainPage.openMainPage();
         EventsPage eventsPage = mainPage.goToEvents();
         eventsPage.getEventTabsListElements().clickPastEventsBtn();
-        eventsPage.getAllEventCards();
+        List<WebElement> eventCardsList = eventsPage.getAllEventCards();
+
+        //todo потом подумать, возможно здесь заменить на софт-ассерт
+        for (int i = 0; i < eventCardsList.size(); i++) {
+            var eventCardElement = eventsPage.getEventCardElement(eventCardsList.get(i));
+            Assertions.assertTrue(eventCardElement.isDisplayedLanguage());
+            Assertions.assertNotNull(eventCardElement.getTextLanguage());
+            Assertions.assertTrue(eventCardElement.isDisplayedEventName());
+            Assertions.assertNotNull(eventCardElement.getTextEventName());
+            Assertions.assertTrue(eventCardElement.isDisplayedDate());
+            Assertions.assertNotNull(eventCardElement.getTextDatePeriod());
+            Assertions.assertTrue(eventCardElement.isDisplayedRegStatus());
+            Assertions.assertNotNull(eventCardElement.getTextRegStatus());
+            Assertions.assertTrue(eventCardElement.isDisplayedSpeakers());
+            Assertions.assertTrue(eventCardElement.getAllSpeakers().size() != 0);
+        }
 
 
     }

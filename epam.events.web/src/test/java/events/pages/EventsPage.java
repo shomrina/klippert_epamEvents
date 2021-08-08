@@ -20,7 +20,7 @@ public class EventsPage extends AbstractPage {
 /*    private By upcomingEventsBntLocator = By.cssSelector("span.evnt-tab-text.desktop");
     private By upcomingEventCounterLocator = By.cssSelector("span.evnt-tab-counter");
     private By eventTabLinkLocator = By.cssSelector("a.evnt-tab-link");*/
-    private By eventDateLocator = By.cssSelector("div.evnt-event-dates span.date");
+ //   private By eventDateLocator = By.cssSelector("div.evnt-event-dates span.date");
 
 
     public EventsPage(WebDriver driver) {
@@ -38,6 +38,10 @@ public class EventsPage extends AbstractPage {
         return new EventTabsListElements();
     }
 
+    public EventCardElement getEventCardElement(WebElement eventCard) {
+        return new EventCardElement(eventCard);
+    }
+
 /*    public int getNumberUpcomingEvents() {
         if (!isUpcomingEvensActive()) waitElementToBeClickable(upcomingEventsBntLocator, 5).click();
         int expectedCount = Integer.parseInt(getWebElement(upcomingEventCounterLocator).getText()) ;
@@ -52,13 +56,13 @@ public class EventsPage extends AbstractPage {
         return isActive;
     }*/
 
-    public String getDatePeriodForEvent(List<WebElement> eventCards, int id) {
+/*    public String getDatePeriodForEvent(List<WebElement> eventCards, int id) {
         //get date periods for the event
        // List<WebElement> eventCards = this.getAllEventCards();
         String datePeriodInText = eventCards.get(id).findElement(eventDateLocator).getText();
         log.debug("event [" + id + "] datePeriodInText = {}", datePeriodInText);
         return datePeriodInText;
-    }
+    }*/
 
     /**
      * EventTabsListElements class contains interaction, properties and describe buttons in the Event tab list^ Upcoming events and Past events
@@ -114,12 +118,78 @@ public class EventsPage extends AbstractPage {
             return isActive;
         }
 
-        public int getNumberPastEvents() {
+      /*  public int getNumberPastEvents() {
             if (!isPastEventActive()) clickPastEventsBtn();
             int expectedCount = Integer.parseInt(pastEventsLink.findElement(evntTabCounterLocator).getText());
             log.info("getNumberPastEvents = {}", expectedCount);
             return expectedCount;
-        }
+        }*/
     }
 
+    public class EventCardElement {
+        WebElement eventCard;
+
+        private By languageLocator = By.cssSelector("p.language > span");
+        private By eventsNameLocator = By.cssSelector("div.evnt-event-name span");
+        private By eventDateLocator = By.cssSelector("div.evnt-event-dates span.date");
+        private By eventRegStatusLocator = By.cssSelector("div.evnt-event-dates span.status");
+        private By eventSpeakersLocator = By.cssSelector("div.evnt-people-cell.speakers");
+
+        public EventCardElement(WebElement eventCard) {
+            waitElementToBeClickable(eventCardsLocator, 5);
+            PageFactory.initElements(driver, this);
+            this.eventCard = eventCard;
+        }
+
+        public Boolean isElementDisplayed(By locator) {
+            return eventCard.findElement(locator).isDisplayed();
+        }
+
+        public String getTextFromElement(By locator) {
+            return eventCard.findElement(locator).getText();
+        }
+
+        public Boolean isDisplayedLanguage() {
+            return isElementDisplayed(languageLocator);
+        }
+
+        public String getTextLanguage() {
+            return getTextFromElement(languageLocator);
+        }
+
+        public Boolean isDisplayedEventName() {
+            return isElementDisplayed(eventsNameLocator);
+        }
+
+        public String getTextEventName() {
+            return getTextFromElement(eventsNameLocator);
+        }
+
+        public Boolean isDisplayedDate() {
+            return isElementDisplayed(eventDateLocator);
+        }
+
+        public String getTextDatePeriod() {
+            String datePeriodInText = getTextFromElement(eventDateLocator);
+            log.debug("event datePeriodInText = {}", datePeriodInText);
+            return datePeriodInText;
+        }
+
+        public Boolean isDisplayedRegStatus() {
+            return isElementDisplayed(eventRegStatusLocator);
+        }
+
+        public String getTextRegStatus() {
+            return getTextFromElement(eventRegStatusLocator);
+        }
+
+        public Boolean isDisplayedSpeakers() {
+            return isElementDisplayed(eventSpeakersLocator);
+        }
+
+        public List<WebElement> getAllSpeakers() {
+            return getWebElement(eventSpeakersLocator).findElements(By.cssSelector("div.speakers-wrapper > div.evnt-speaker"));
+        }
+
+    }
 }

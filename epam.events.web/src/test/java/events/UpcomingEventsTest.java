@@ -49,7 +49,8 @@ public class UpcomingEventsTest extends BaseTest {
         }
 
         for (int i = 0; i < eventCards.size(); i++) {
-            String datePeriodInText = eventsPage.getDatePeriodForEvent(eventCards, i);
+          //  String datePeriodInText = eventsPage.getDatePeriodForEvent(eventCards, i);
+            String datePeriodInText = eventsPage.getEventCardElement(eventCards.get(i)).getTextDatePeriod();
             List<String> datesInText = splitPeriodOnDate(datePeriodInText);
             DateTime finishDate = convertStringToDateTime(datesInText.get(1));
 
