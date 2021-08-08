@@ -19,7 +19,7 @@ public abstract class AbstractPage {
     private Logger log = LogManager.getLogger(AbstractPage.class);
 
     /** Common locators of web elements using on the each page */
-    private String baseUrl = "https://events.epam.com/";
+
     private By eventsBtnLocator = By.cssSelector("a[href='/events']");
     private By loaderLocator = By.cssSelector("div.evnt-global-loader");
 
@@ -52,12 +52,6 @@ public abstract class AbstractPage {
     }
 
     /** Methods for common activities or interaction with web elements using on the each page  */
-    public MainPage openMainPage() {
-        driver.get(baseUrl);
-        log.info("Open main page"); //cookie banner : id = onetrust-banner-sdk   & id = onetrust-accept-btn-handler
-        return new MainPage(driver);
-    }
-
     public EventsPage goToEvents() {
         getWebElement(eventsBtnLocator).click();
         waitInvisibilityOf(getWebElement(loaderLocator), 10);
