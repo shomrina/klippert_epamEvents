@@ -51,13 +51,16 @@ public abstract class AbstractPage {
         return wait.until(ExpectedConditions.invisibilityOf(webElement));
     }
 
+    public Boolean waitLoaderBecameInvisible() {
+        return waitInvisibilityOf(getWebElement(loaderLocator), 10);
+    }
+
     /** Methods for common activities or interaction with web elements using on the each page  */
     public EventsPage goToEvents() {
         getWebElement(eventsBtnLocator).click();
-        waitInvisibilityOf(getWebElement(loaderLocator), 10);
+        waitLoaderBecameInvisible();
         log.info("Go to Events");
         return new EventsPage(driver);
     }
-
 
 }

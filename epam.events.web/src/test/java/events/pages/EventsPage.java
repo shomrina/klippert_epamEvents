@@ -82,32 +82,43 @@ public class EventsPage extends AbstractPage {
         }
 
         /** Working with upcomingEvents button */
-        public WebElement getUpcomingEventsBtn() {
-            return upcomingEventsLink.findElement(eventBtnLocator);  //evntTabsList.get(0).findElement(By.cssSelector("span.evnt-tab-text.desktop"));
+        public void clickUpcomingEventsBtn() {
+            upcomingEventsLink.findElement(eventBtnLocator).click();
+            waitLoaderBecameInvisible();
+            log.info("Click Upcoming events button");
         }
 
         public Boolean isUpcomingActive() {
             Boolean isActive = upcomingEventsLink.findElement(evntTabLinkLocator).getAttribute("class").contains("active");
-                    log.info("button 'Upcoming events' {}", isActive);
+            log.info("button 'Upcoming events' {}", isActive);
             return isActive;
         }
 
         public int getNumberUpcomingEvents() {
-            if (!isUpcomingActive()) getUpcomingEventsBtn().click();
-            return Integer.parseInt(upcomingEventsLink.findElement(evntTabCounterLocator).getText());
+            if (!isUpcomingActive()) clickUpcomingEventsBtn();
+            int expectedCount = Integer.parseInt(upcomingEventsLink.findElement(evntTabCounterLocator).getText());
+            log.info("getNumberUpcomingEvents = {}", expectedCount);
+            return expectedCount;
         }
 
         /** Working with pastEvents button */
-        public WebElement getPastEventsBtn() {
-            return pastEventsLink.findElement(eventBtnLocator);
+        public void clickPastEventsBtn() {
+            pastEventsLink.findElement(eventBtnLocator).click();
+            waitLoaderBecameInvisible();
+            log.info("Click Past events button");
         }
 
         public Boolean isPastEventActive() {
-            return pastEventsLink.findElement(evntTabLinkLocator).getAttribute("class").contains("active");
+            Boolean isActive = pastEventsLink.findElement(evntTabLinkLocator).getAttribute("class").contains("active");
+            log.info("button 'Past events' {}", isActive);
+            return isActive;
         }
 
         public int getNumberPastEvents() {
-            return Integer.parseInt(pastEventsLink.findElement(evntTabCounterLocator).getText());
+            if (!isPastEventActive()) clickPastEventsBtn();
+            int expectedCount = Integer.parseInt(pastEventsLink.findElement(evntTabCounterLocator).getText());
+            log.info("getNumberPastEvents = {}", expectedCount);
+            return expectedCount;
         }
     }
 
