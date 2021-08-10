@@ -22,6 +22,7 @@ public abstract class AbstractPage {
 
     private By eventsBtnLocator = By.cssSelector("a[href='/events']");
     private By loaderLocator = By.cssSelector("div.evnt-global-loader");
+    private By videoBtnLocator = By.cssSelector("a[href*='/video']");
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
@@ -61,6 +62,13 @@ public abstract class AbstractPage {
         waitLoaderBecameInvisible();
         log.info("Go to Events");
         return new EventsPage(driver);
+    }
+
+    public TalksLibraryPage goToVideo() {
+        getWebElement(videoBtnLocator).click();
+        waitLoaderBecameInvisible();
+        log.info("Go to Video page (talks library)");
+        return new TalksLibraryPage(driver);
     }
 
 }

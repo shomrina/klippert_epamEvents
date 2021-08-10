@@ -29,7 +29,6 @@ public class UpcomingEventsTest extends BaseTest {
         mainPage.openMainPage();
         EventsPage eventsPage = mainPage.goToEvents();
         int expectedCount = eventsPage.getEventTabsListElements().getNumberUpcomingEvents();
-       // int expectedCount = eventsPage.getNumberUpcomingEvents();
         List<WebElement> eventCards = eventsPage.getAllEventCards();
 
         Assertions.assertEquals(eventCards.size(), expectedCount);
@@ -49,7 +48,6 @@ public class UpcomingEventsTest extends BaseTest {
         }
 
         for (int i = 0; i < eventCards.size(); i++) {
-          //  String datePeriodInText = eventsPage.getDatePeriodForEvent(eventCards, i);
             String datePeriodInText = eventsPage.getEventCardElement(eventCards.get(i)).getTextDatePeriod();
             List<String> datesInText = splitPeriodOnDate(datePeriodInText);
             DateTime finishDate = convertStringToDateTime(datesInText.get(1));
