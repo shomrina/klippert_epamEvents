@@ -17,11 +17,8 @@ public class EventsPage extends AbstractPage {
     private Logger log = LogManager.getLogger(EventsPage.class);
 
     private By eventCardsLocator = By.cssSelector("div.evnt-event-card");
-/*    private By upcomingEventsBntLocator = By.cssSelector("span.evnt-tab-text.desktop");
-    private By upcomingEventCounterLocator = By.cssSelector("span.evnt-tab-counter");
-    private By eventTabLinkLocator = By.cssSelector("a.evnt-tab-link");*/
- //   private By eventDateLocator = By.cssSelector("div.evnt-event-dates span.date");
-
+    private By locationFilterLocator = By.id("filter_location");
+    private By locationFilterScrollLocator = By.cssSelector("div.evnt-dropdown-filter.dropdown.show div.evnt-filter-menu");
 
     public EventsPage(WebDriver driver) {
         super(driver);
@@ -42,27 +39,26 @@ public class EventsPage extends AbstractPage {
         return new EventCardElement(eventCard);
     }
 
-/*    public int getNumberUpcomingEvents() {
-        if (!isUpcomingEvensActive()) waitElementToBeClickable(upcomingEventsBntLocator, 5).click();
-        int expectedCount = Integer.parseInt(getWebElement(upcomingEventCounterLocator).getText()) ;
-        log.info("getNumberUpcomingEvents = {}", expectedCount);
-        return expectedCount;
+    public WebElement getFilterLocationElement(){
+        return getWebElement(locationFilterLocator);
     }
 
-    public Boolean isUpcomingEvensActive() {
-        Boolean isActive = waitVisibilityOfElementLocated(eventTabLinkLocator, 5).getAttribute("class").contains("active");
-        //  log.debug("DEBUG atribute classname = {}", getWebElement(eventTabLinkLocator).getAttribute("class"));
-        log.info("button 'Upcoming events' {}", isActive);
-        return isActive;
-    }*/
+    public void openLocationFilter() {
+        this.getFilterLocationElement().click();
+        waitVisibilityOfElementLocated(locationFilterScrollLocator, 5);
+        log.info("Click filter 'Location'");
+    }
 
-/*    public String getDatePeriodForEvent(List<WebElement> eventCards, int id) {
-        //get date periods for the event
-       // List<WebElement> eventCards = this.getAllEventCards();
-        String datePeriodInText = eventCards.get(id).findElement(eventDateLocator).getText();
-        log.debug("event [" + id + "] datePeriodInText = {}", datePeriodInText);
-        return datePeriodInText;
-    }*/
+    public void filterByLocation(String location) {
+        if(getFilterLocationElement().getAttribute("aria-expanded").contains("true")) {
+            this.getWebElement(locationFilterScrollLocator).findElement(By.cssSelector("label[data-value='" + location + "']")).click();
+            waitLoaderBecameInvisible();
+            this.getFilterLocationElement().click();  //close filter scroll
+            log.info("Events was filtered by location = {}", location);
+        } else {
+            log.info("Filter 'Location' wasn't expanded");
+        }
+    }
 
     /**
      * EventTabsListElements class contains interaction, properties and describe buttons in the Event tab list^ Upcoming events and Past events
@@ -118,12 +114,12 @@ public class EventsPage extends AbstractPage {
             return isActive;
         }
 
-      /*  public int getNumberPastEvents() {
+        public int getNumberPastEvents() {
             if (!isPastEventActive()) clickPastEventsBtn();
             int expectedCount = Integer.parseInt(pastEventsLink.findElement(evntTabCounterLocator).getText());
             log.info("getNumberPastEvents = {}", expectedCount);
             return expectedCount;
-        }*/
+        }
     }
 
     public class EventCardElement {

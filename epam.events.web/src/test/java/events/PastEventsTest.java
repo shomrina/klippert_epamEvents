@@ -2,7 +2,6 @@ package events;
 
 import events.pages.EventsPage;
 import events.pages.MainPage;
-import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,20 @@ public class PastEventsTest extends BaseTest {
             Assertions.assertTrue(eventCardElement.isDisplayedSpeakers());
             Assertions.assertTrue(eventCardElement.getAllSpeakers().size() != 0);
         }
+    }
 
+    @Test
+    @DisplayName("View past events in Canada")
+    public void viewPastEventsInCanada() {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.openMainPage();
+        EventsPage eventsPage = mainPage.goToEvents();
+        eventsPage.getEventTabsListElements().clickPastEventsBtn();
+        eventsPage.openLocationFilter();
+        eventsPage.filterByLocation("Canada");
+        int expectedCount = eventsPage.getEventTabsListElements().getNumberPastEvents();
+        int eventCardsCount = eventsPage.getAllEventCards().size();
 
+        Assertions.assertEquals(expectedCount, eventCardsCount);
     }
 }
