@@ -5,6 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 /**
  * TalksLibraryPage class for describing elements on the Video page (talks library)
@@ -18,6 +22,7 @@ public class TalksLibraryPage extends AbstractPage {
     private By locationFilterLocator = By.id("filter_location");
     private By filterScrollLocator = By.cssSelector("div.evnt-dropdown-filter.dropdown.show div.evnt-filter-menu");  //todo?
     private By languageFilterLocator = By.id("filter_language");
+    private By eventTalkCardLocator = By.cssSelector("div.evnt-talks-row div.evnt-talk-card");
 
 
 
@@ -63,6 +68,69 @@ public class TalksLibraryPage extends AbstractPage {
             log.info("Filter 'Location' wasn't expanded");
         }
     }
+
+    public List<WebElement> getEventTalks() {
+        List<WebElement> list = getWebElements(eventTalkCardLocator);
+        log.debug("get events task, count = {}", list.size());
+        return list;
+    }
+
+    public EventTalksElement clickEventTalk(WebElement eventTalksItem) {
+        eventTalksItem.click();
+        return new EventTalksElement();
+    }
+
+    public class EventTalksElement {
+        private By eventCardTableLocator = By.cssSelector("div.evnt-card-table");
+
+        @FindBy(css = "div.evnt-talk-details.topics div.evnt-topic.evnt-talk-topic")
+        private List<WebElement> categories;
+
+        @FindBy(css = "div.evnt-talk-details.location.evnt-now-past-talk")
+        private WebElement location;
+
+        @FindBy(css = "div.evnt-talk-details.language.evnt-now-past-talk")
+        private WebElement language;
+
+        @FindBy(css = "div.evnt-nav-cell.link > a")
+        private WebElement backLink;
+
+        public EventTalksElement() {
+            waitLoaderBecameInvisible();
+            waitVisibilityOfElementLocated(eventCardTableLocator, 5);
+            PageFactory.initElements(driver, this);
+        }
+
+        public Boolean isContainsCategory(String expectedCategory) {
+            for (WebElement category : categories) {
+                log.debug("category.getText() = {}", category.getText());
+                if (category.getText().contains(expectedCategory)) return true;
+            }
+            return false;
+        }
+
+        public Boolean isContainsLocation(String expectedLocation) {
+            String locText = location.getText();
+            log.debug("location text = {}", locText);
+            return locText.contains(expectedLocation);
+        }
+
+        public Boolean isMatchLanguage(String expectedLanguage) {
+            String languageText = language.getText();
+            log.debug("language text = {}", languageText);
+            return languageText.equals(expectedLanguage);
+        }
+
+        public TalksLibraryPage goBack(){
+            backLink.click();
+            waitLoaderBecameInvisible();
+            waitElementToBeClickable(eventCardTableLocator, 5);
+            log.info("go back to the talks library page");
+            return new TalksLibraryPage(driver);
+        }
+
+    }
+
 
 
 }
