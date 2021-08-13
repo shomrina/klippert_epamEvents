@@ -48,7 +48,7 @@ public abstract class AbstractPage {
     }
 
     public WebElement waitVisibilityOf(WebElement webElement, int timeInSec){
-        WebDriverWait wait = new WebDriverWait(driver, timeInSec,50);
+        WebDriverWait wait = new WebDriverWait(driver, timeInSec,20);
         return wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
