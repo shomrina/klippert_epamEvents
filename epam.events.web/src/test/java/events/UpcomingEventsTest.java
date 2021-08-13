@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -53,8 +52,8 @@ public class UpcomingEventsTest extends BaseTest {
             DateTime finishDate = convertStringToDateTime(datesInText.get(1));
 
             Assertions.assertTrue(finishDate.isAfterNow() || finishDate.isBefore(finishDate.plusDays(1)),
-                    "The events " + i + "shouldn't be in upcoming events list. \nfinishDate = " + finishDate + "\ncurrentDate = " + DateTime.now() + "\nfinishDate.isEqualNow() = " + finishDate.isEqualNow());
+                    "The events " + i + "shouldn't be in upcoming events list. \nfinishDate = " + finishDate +
+                            "\ncurrentDate = " + DateTime.now() + "\nfinishDate.isEqualNow() = " + finishDate.isEqualNow());
         }
     }
-
 }

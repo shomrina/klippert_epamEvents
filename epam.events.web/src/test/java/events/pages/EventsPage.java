@@ -122,6 +122,9 @@ public class EventsPage extends AbstractPage {
         }
     }
 
+    /**
+     * EventCardElement class contains interaction, properties and describe fields in the event card : Upcoming events and Past events
+     */
     public class EventCardElement {
         WebElement eventCard;
 

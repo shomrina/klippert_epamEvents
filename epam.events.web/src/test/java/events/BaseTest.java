@@ -11,7 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 /**
  * Base class for TestNG-based test classes
  */
-
 public class BaseTest {
 
     protected static WebDriver driver;

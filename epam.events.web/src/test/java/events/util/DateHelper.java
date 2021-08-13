@@ -1,6 +1,5 @@
 package events.util;
 
-import events.UpcomingEventsTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
@@ -49,10 +48,4 @@ public class DateHelper {
         return dateTime;
     }
 
-
-
-
-      /*//get current date
-        DateTime currentDate = DateTime.now();
-        log.debug("print = {}", dateFormat.print(currentDate));*/
 }

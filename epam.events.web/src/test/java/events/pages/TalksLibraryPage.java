@@ -23,8 +23,8 @@ public class TalksLibraryPage extends AbstractPage {
     private By filterScrollLocator = By.cssSelector("div.evnt-dropdown-filter.dropdown.show div.evnt-filter-menu");  //todo?
     private By languageFilterLocator = By.id("filter_language");
     private By eventTalkCardLocator = By.cssSelector("div.evnt-talks-row div.evnt-talk-card");
-
-
+    private By searchFilterLocator = By.cssSelector("div.evnt-search-filter > input");
+    private By eventTalkCardNameLocator = By.cssSelector("div.evnt-talk-name");
 
     public TalksLibraryPage(WebDriver driver) {
         super(driver);
@@ -75,12 +75,28 @@ public class TalksLibraryPage extends AbstractPage {
         return list;
     }
 
-    public EventTalksElement clickEventTalk(WebElement eventTalksItem) {
+    public EventTalksPage clickEventTalk(WebElement eventTalksItem) {
         eventTalksItem.click();
-        return new EventTalksElement();
+        return new EventTalksPage();
     }
 
-    public class EventTalksElement {
+    public void searchByKeyword(String keyword) {
+        waitElementToBeClickable(searchFilterLocator, 5);
+        getWebElement(searchFilterLocator).sendKeys(keyword);
+        waitVisibilityOf(getLoader(), 2);
+        waitLoaderBecameInvisible();
+        waitVisibilityOfElementLocated(eventTalkCardLocator, 5);
+        log.info("Search by value = {}", keyword);
+    }
+
+    public String getEventTalkCardName(WebElement talkCard) {
+        return talkCard.findElement(eventTalkCardNameLocator).getText();
+    }
+
+    /**
+     * EventTalksPage class for describing elements and interactions on the event talks opened as different page
+     */
+    public class EventTalksPage {
         private By eventCardTableLocator = By.cssSelector("div.evnt-card-table");
 
         @FindBy(css = "div.evnt-talk-details.topics div.evnt-topic.evnt-talk-topic")
@@ -95,7 +111,7 @@ public class TalksLibraryPage extends AbstractPage {
         @FindBy(css = "div.evnt-nav-cell.link > a")
         private WebElement backLink;
 
-        public EventTalksElement() {
+        public EventTalksPage() {
             waitLoaderBecameInvisible();
             waitVisibilityOfElementLocated(eventCardTableLocator, 5);
             PageFactory.initElements(driver, this);

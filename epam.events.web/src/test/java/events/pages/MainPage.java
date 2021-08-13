@@ -22,7 +22,7 @@ public class MainPage extends AbstractPage {
 
     public MainPage openMainPage() {
         driver.get(baseUrl);
-        log.info("Open main page"); //cookie banner : id = onetrust-banner-sdk   & id = onetrust-accept-btn-handler
+        log.info("Open main page");
         closeCookieBanner();
         return new MainPage(driver);
     }

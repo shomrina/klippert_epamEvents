@@ -47,13 +47,25 @@ public abstract class AbstractPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    public WebElement waitVisibilityOf(WebElement webElement, int timeInSec){
+        WebDriverWait wait = new WebDriverWait(driver, timeInSec,50);
+        return wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
     public Boolean waitInvisibilityOf(WebElement webElement, int timeInSec) {
         WebDriverWait wait = new WebDriverWait(driver, timeInSec);
         return wait.until(ExpectedConditions.invisibilityOf(webElement));
     }
 
-    public Boolean waitLoaderBecameInvisible() {
-        return waitInvisibilityOf(getWebElement(loaderLocator), 10);
+    public void  waitLoaderBecameInvisible() {
+        if (getLoader().isDisplayed()) {
+            log.debug("loader detected");
+            waitInvisibilityOf(getLoader(), 10);
+        }
+    }
+
+    public WebElement getLoader() {
+        return getWebElement(loaderLocator);
     }
 
     /** Methods for common activities or interaction with web elements using on the each page  */
