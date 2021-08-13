@@ -5,7 +5,6 @@ import events.pages.TalksLibraryPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class TalksLibraryTest extends  BaseTest {
