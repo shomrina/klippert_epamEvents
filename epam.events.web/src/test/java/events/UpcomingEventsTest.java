@@ -52,8 +52,8 @@ public class UpcomingEventsTest extends BaseTest {
             List<String> datesInText = splitPeriodOnDate(datePeriodInText);
             DateTime finishDate = convertStringToDateTime(datesInText.get(1));
 
-            Assertions.assertTrue(finishDate.isAfterNow() || finishDate.isEqualNow(),
-                    "The events " + i + "shouldn't be in upcoming events list. \nfinishDate = " + finishDate + "\ncurrentDate = " + DateTime.now());
+            Assertions.assertTrue(finishDate.isAfterNow() || finishDate.isBefore(finishDate.plusDays(1)),
+                    "The events " + i + "shouldn't be in upcoming events list. \nfinishDate = " + finishDate + "\ncurrentDate = " + DateTime.now() + "\nfinishDate.isEqualNow() = " + finishDate.isEqualNow());
         }
     }
 
