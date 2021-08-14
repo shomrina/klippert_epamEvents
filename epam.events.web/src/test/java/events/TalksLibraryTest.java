@@ -2,6 +2,10 @@ package events;
 
 import events.pages.MainPage;
 import events.pages.TalksLibraryPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +13,10 @@ import org.openqa.selenium.WebElement;
 
 public class TalksLibraryTest extends  BaseTest {
 
+    @Epic("Epam Events")
+    @Feature("Talks library")
+    @Story("Filter talks by category, locations and language")
+    @Description("Filter talks by category, locations and language and verify that the result list of talks card matches the filter value")
     @Test
     @DisplayName("Filter talks by category, locations and language")
     public void filterTalksByCategories() {
@@ -39,6 +47,10 @@ public class TalksLibraryTest extends  BaseTest {
         }
     }
 
+    @Epic("Epam Events")
+    @Feature("Talks library")
+    @Story("Search talks events by key word")
+    @Description("Search talks events by key word and verify that the talk's name contains the key word")
     @Test
     @DisplayName("Search talks events by key word")
     public void searchTalksByKeyword() throws InterruptedException {
@@ -53,6 +65,5 @@ public class TalksLibraryTest extends  BaseTest {
             Assertions.assertTrue(talkName.contains(searchingValue),
                     "talks card summery = " + talkName + "\nsearchingValue = " + searchingValue);
         }
-
     }
 }

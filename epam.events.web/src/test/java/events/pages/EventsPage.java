@@ -1,5 +1,6 @@
 package events.pages;
 
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ public class EventsPage extends AbstractPage {
         super(driver);
     }
 
+    @Step("Get all event cards")
     public List<WebElement> getAllEventCards() {
         waitElementToBeClickable(eventCardsLocator, 5);
         List<WebElement> eventCards =  getWebElements(eventCardsLocator);
@@ -35,6 +37,7 @@ public class EventsPage extends AbstractPage {
         return new EventTabsListElements();
     }
 
+    @Step("Get event card element")
     public EventCardElement getEventCardElement(WebElement eventCard) {
         return new EventCardElement(eventCard);
     }
@@ -43,12 +46,14 @@ public class EventsPage extends AbstractPage {
         return getWebElement(locationFilterLocator);
     }
 
-    public void openLocationFilter() {
+    @Step("Click filter 'location'")
+    public void clickLocationFilter() {
         this.getFilterLocationElement().click();
         waitVisibilityOfElementLocated(locationFilterScrollLocator, 5);
         log.info("Click filter 'Location'");
     }
 
+    @Step("Filter by location")
     public void filterByLocation(String location) {
         if(getFilterLocationElement().getAttribute("aria-expanded").contains("true")) {
             this.getWebElement(locationFilterScrollLocator).findElement(By.cssSelector("label[data-value='" + location + "']")).click();
@@ -94,6 +99,7 @@ public class EventsPage extends AbstractPage {
             return isActive;
         }
 
+        @Step("Get number of upcoming events in the button")
         public int getNumberUpcomingEvents() {
             if (!isUpcomingActive()) clickUpcomingEventsBtn();
             int expectedCount = Integer.parseInt(upcomingEventsLink.findElement(evntTabCounterLocator).getText());
@@ -102,6 +108,7 @@ public class EventsPage extends AbstractPage {
         }
 
         /** Working with pastEvents button */
+        @Step("Click button 'Past events'")
         public void clickPastEventsBtn() {
             pastEventsLink.findElement(eventBtnLocator).click();
             waitLoaderBecameInvisible();
@@ -114,6 +121,7 @@ public class EventsPage extends AbstractPage {
             return isActive;
         }
 
+        @Step("Get number of past event in the button")
         public int getNumberPastEvents() {
             if (!isPastEventActive()) clickPastEventsBtn();
             int expectedCount = Integer.parseInt(pastEventsLink.findElement(evntTabCounterLocator).getText());
@@ -148,6 +156,7 @@ public class EventsPage extends AbstractPage {
             return eventCard.findElement(locator).getText();
         }
 
+        @Step("Verify that 'language' is displayed")
         public Boolean isDisplayedLanguage() {
             return isElementDisplayed(languageLocator);
         }
@@ -156,6 +165,7 @@ public class EventsPage extends AbstractPage {
             return getTextFromElement(languageLocator);
         }
 
+        @Step("Verify that 'event name' is displayed")
         public Boolean isDisplayedEventName() {
             return isElementDisplayed(eventsNameLocator);
         }
@@ -164,16 +174,19 @@ public class EventsPage extends AbstractPage {
             return getTextFromElement(eventsNameLocator);
         }
 
+        @Step("Verify that 'Date' is displayed")
         public Boolean isDisplayedDate() {
             return isElementDisplayed(eventDateLocator);
         }
 
+        @Step("Get text from date block on the card")
         public String getTextDatePeriod() {
             String datePeriodInText = getTextFromElement(eventDateLocator);
             log.debug("event datePeriodInText = {}", datePeriodInText);
             return datePeriodInText;
         }
 
+        @Step("Verify that 'RegStatus' is displayed")
         public Boolean isDisplayedRegStatus() {
             return isElementDisplayed(eventRegStatusLocator);
         }
@@ -182,6 +195,7 @@ public class EventsPage extends AbstractPage {
             return getTextFromElement(eventRegStatusLocator);
         }
 
+        @Step("Verify that 'Speakers' is displayed")
         public Boolean isDisplayedSpeakers() {
             return isElementDisplayed(eventSpeakersLocator);
         }

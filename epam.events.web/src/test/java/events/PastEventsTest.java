@@ -2,6 +2,10 @@ package events;
 
 import events.pages.EventsPage;
 import events.pages.MainPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +18,10 @@ import java.util.List;
  */
 public class PastEventsTest extends BaseTest {
 
+    @Epic("Epam Events")
+    @Feature("Past events")
+    @Story("View past events")
+    @Description("View past events and verify that the main information is displayed and contains not null text")
     @Test
     @DisplayName("View past events")
     public void viewPastEvents() {
@@ -39,6 +47,10 @@ public class PastEventsTest extends BaseTest {
         }
     }
 
+    @Epic("Epam Events")
+    @Feature("Past events")
+    @Story("View past events in Canada")
+    @Description("View past events and verify that displayed number of past events on the button matches number of cards event displayed on the page")
     @Test
     @DisplayName("View past events in Canada")
     public void viewPastEventsInCanada() {
@@ -46,7 +58,7 @@ public class PastEventsTest extends BaseTest {
         mainPage.openMainPage();
         EventsPage eventsPage = mainPage.goToEvents();
         eventsPage.getEventTabsListElements().clickPastEventsBtn();
-        eventsPage.openLocationFilter();
+        eventsPage.clickLocationFilter();
         eventsPage.filterByLocation("Canada");
         int expectedCount = eventsPage.getEventTabsListElements().getNumberPastEvents();
         int eventCardsCount = eventsPage.getAllEventCards().size();

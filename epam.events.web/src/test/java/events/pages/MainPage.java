@@ -1,5 +1,6 @@
 package events.pages;
 
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -20,6 +21,7 @@ public class MainPage extends AbstractPage {
         super(driver);
     }
 
+    @Step("Open main page")
     public MainPage openMainPage() {
         driver.get(baseUrl);
         log.info("Open main page");
@@ -27,6 +29,7 @@ public class MainPage extends AbstractPage {
         return new MainPage(driver);
     }
 
+    @Step("Close cookie banner")
     public void closeCookieBanner() {
         if(getWebElement(cookieBannerLocator).isDisplayed()) {
             getWebElement(cookieBannerLocator).findElement(acceptCookieBtn).click();

@@ -2,6 +2,10 @@ package events;
 
 import events.pages.EventsPage;
 import events.pages.MainPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
@@ -21,6 +25,10 @@ public class UpcomingEventsTest extends BaseTest {
 
     private Logger log = LogManager.getLogger(UpcomingEventsTest.class);
 
+    @Epic("Epam Events")
+    @Feature("Upcoming events")
+    @Story("View upcoming events")
+    @Description("View upcoming events and verify that displayed number of events on the button matches number of cards event displayed on the page")
     @Test
     @DisplayName("View upcoming events and verify count")
     public void viewUpcomingEvents() {
@@ -33,6 +41,10 @@ public class UpcomingEventsTest extends BaseTest {
         Assertions.assertEquals(eventCards.size(), expectedCount);
     }
 
+    @Epic("Epam Events")
+    @Feature("Upcoming events")
+    @Story("View upcoming event's date")
+    @Description("View upcoming events and verify that date of events more or equal then current day, or verify that the current date is between the event period")
     @Test
     @DisplayName("Verify upcoming event's date and current date")
     public void verifyDateUpcomingEvents() {

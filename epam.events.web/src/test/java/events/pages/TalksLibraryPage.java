@@ -1,5 +1,6 @@
 package events.pages;
 
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -34,6 +35,7 @@ public class TalksLibraryPage extends AbstractPage {
         return getWebElement(moreFiltersBtnLocator);
     }
 
+    @Step("Click 'More filters' or 'Hide filters'")
     public void clickMoreFilters() {
         getMoreFiltersElement().click();
         log.info("Click More/Hide Filters button");
@@ -52,12 +54,14 @@ public class TalksLibraryPage extends AbstractPage {
         return getWebElement(languageFilterLocator);
     }
 
+    @Step("Click filter value {filterLocationElement}")
     public void clickFilterValue(WebElement filterLocationElement) {
         filterLocationElement.click();
         waitVisibilityOfElementLocated(filterScrollLocator, 5);
         log.info("Click filter '{}'", filterLocationElement.getText());
     }
 
+    @Step("Filter by value {filterElement}")
     public void filterByValue(String filterValue, WebElement filterElement) {
         if(filterElement.getAttribute("aria-expanded").contains("true")) {
             this.getWebElement(filterScrollLocator).findElement(By.cssSelector("label[data-value='" + filterValue + "']")).click();
@@ -69,17 +73,20 @@ public class TalksLibraryPage extends AbstractPage {
         }
     }
 
+    @Step("Get event talks cards")
     public List<WebElement> getEventTalks() {
         List<WebElement> list = getWebElements(eventTalkCardLocator);
         log.debug("get events task, count = {}", list.size());
         return list;
     }
 
+    @Step("Click on the event talks card and go to event talks page")
     public EventTalksPage clickEventTalk(WebElement eventTalksItem) {
         eventTalksItem.click();
         return new EventTalksPage();
     }
 
+    @Step("search by key word {keyword}")
     public void searchByKeyword(String keyword) throws InterruptedException {
         waitElementToBeClickable(searchFilterLocator, 5);
         getWebElement(searchFilterLocator).sendKeys(keyword);
@@ -89,6 +96,7 @@ public class TalksLibraryPage extends AbstractPage {
         log.info("Search by value = {}", keyword);
     }
 
+    @Step("Get event talk card's name")
     public String getEventTalkCardName(WebElement talkCard) {
         return talkCard.findElement(eventTalkCardNameLocator).getText();
     }
@@ -117,6 +125,7 @@ public class TalksLibraryPage extends AbstractPage {
             PageFactory.initElements(driver, this);
         }
 
+        @Step("Verify that talks contains category")
         public Boolean isContainsCategory(String expectedCategory) {
             for (WebElement category : categories) {
                 log.debug("category.getText() = {}", category.getText());
@@ -125,18 +134,21 @@ public class TalksLibraryPage extends AbstractPage {
             return false;
         }
 
+        @Step("Verify that talks contains location")
         public Boolean isContainsLocation(String expectedLocation) {
             String locText = location.getText();
             log.debug("location text = {}", locText);
             return locText.contains(expectedLocation);
         }
 
+        @Step("Verify that talks language is matched")
         public Boolean isMatchLanguage(String expectedLanguage) {
             String languageText = language.getText();
             log.debug("language text = {}", languageText);
             return languageText.equals(expectedLanguage);
         }
 
+        @Step("Go back to the talks library page")
         public TalksLibraryPage goBack(){
             backLink.click();
             waitLoaderBecameInvisible();

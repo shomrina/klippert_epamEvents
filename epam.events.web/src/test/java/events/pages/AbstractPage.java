@@ -1,5 +1,6 @@
 package events.pages;
 
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -69,6 +70,7 @@ public abstract class AbstractPage {
     }
 
     /** Methods for common activities or interaction with web elements using on the each page  */
+    @Step("Go to Events page")
     public EventsPage goToEvents() {
         getWebElement(eventsBtnLocator).click();
         waitLoaderBecameInvisible();
@@ -76,6 +78,7 @@ public abstract class AbstractPage {
         return new EventsPage(driver);
     }
 
+    @Step("Go to Video page (talks library)")
     public TalksLibraryPage goToVideo() {
         getWebElement(videoBtnLocator).click();
         waitLoaderBecameInvisible();
