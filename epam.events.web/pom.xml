@@ -9,14 +9,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <browser>chrome</browser>
+    <options>start-maximized</options>
   </properties>
 
   <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>org.testng</groupId>-->
-<!--      <artifactId>testng</artifactId>-->
-<!--      <version>7.3.0</version>-->
-<!--    </dependency>-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -26,6 +23,12 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
+      <version>5.7.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <version>5.7.0</version>
       <scope>test</scope>
     </dependency>
@@ -85,11 +88,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
         <configuration>
-<!--          <suiteXmlFiles>-->
-<!--            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>-->
-<!--          </suiteXmlFiles>-->
           <systemPropertyVariables>
-            <application.properties>/application.properties</application.properties>
+<!--            <application.properties>/application.properties</application.properties>-->
+            <browser>${browser}</browser>
+            <options>${options}</options>
           </systemPropertyVariables>
         </configuration>
       </plugin>

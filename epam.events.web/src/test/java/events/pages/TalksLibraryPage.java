@@ -80,12 +80,12 @@ public class TalksLibraryPage extends AbstractPage {
         return new EventTalksPage();
     }
 
-    public void searchByKeyword(String keyword) {
+    public void searchByKeyword(String keyword) throws InterruptedException {
         waitElementToBeClickable(searchFilterLocator, 5);
         getWebElement(searchFilterLocator).sendKeys(keyword);
         waitVisibilityOf(getLoader(), 2);
         waitLoaderBecameInvisible();
-        waitVisibilityOfElementLocated(eventTalkCardLocator, 5);
+        Thread.sleep(2000);
         log.info("Search by value = {}", keyword);
     }
 

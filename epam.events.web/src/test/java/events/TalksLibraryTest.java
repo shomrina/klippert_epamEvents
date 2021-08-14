@@ -41,7 +41,7 @@ public class TalksLibraryTest extends  BaseTest {
 
     @Test
     @DisplayName("Search talks events by key word")
-    public void searchTalksByKeyword() {
+    public void searchTalksByKeyword() throws InterruptedException {
         String searchingValue = "QA";
 
         MainPage mainPage = new MainPage(driver);

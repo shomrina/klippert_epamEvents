@@ -18,9 +18,10 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driver = WebDriverFactory.create(System.getProperty("browser"), System.getProperty("options"));
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
+//        driver.manage().window().maximize();
         log.info("Driver is started");
 
     }
