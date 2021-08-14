@@ -11,6 +11,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <browser>chrome</browser>
     <options>start-maximized</options>
+    <parallel>true</parallel>
   </properties>
 
   <dependencies>
@@ -59,6 +60,13 @@
       <artifactId>joda-time</artifactId>
       <version>2.10.10</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server</artifactId>
+      <version>3.141.59</version>
+    </dependency>
+
   </dependencies>
 
 
@@ -88,10 +96,18 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
         <configuration>
+          <properties>
+            <configurationParameters>
+              junit.jupiter.execution.parallel.enabled = ${parallel}
+              junit.jupiter.execution.parallel.mode.default = same_thread
+              junit.jupiter.execution.parallel.mode.classes.default = concurrent
+            </configurationParameters>
+          </properties>
           <systemPropertyVariables>
-<!--            <application.properties>/application.properties</application.properties>-->
+<!--            <application.properties>/application.properties</application.properties> -->
             <browser>${browser}</browser>
             <options>${options}</options>
+            <parallel>${parallel}</parallel>
           </systemPropertyVariables>
         </configuration>
       </plugin>

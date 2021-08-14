@@ -1,29 +1,23 @@
 package events;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
- * Base class for TestNG-based test classes
+ * Base class for JUnit5-based test classes
  */
 public class BaseTest {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
     private Logger log = LogManager.getLogger(BaseTest.class);
 
     @BeforeEach
     public void setUp() {
         driver = WebDriverFactory.create(System.getProperty("browser"), System.getProperty("options"));
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-//        driver.manage().window().maximize();
         log.info("Driver is started");
-
     }
 
     @AfterEach
