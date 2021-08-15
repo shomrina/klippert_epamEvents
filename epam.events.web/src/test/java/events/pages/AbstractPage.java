@@ -85,5 +85,4 @@ public abstract class AbstractPage {
         log.info("Go to Video page (talks library)");
         return new TalksLibraryPage(driver);
     }
-
 }

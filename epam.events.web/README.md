@@ -29,3 +29,17 @@ You can change it in the pom-file in the 'properties' section.
 Parallel options are configured in the pom-file in the 'build -> maven-surefire-plugin' section.
 If you need switch off parallel running just change parameter 'junit.jupiter.execution.parallel.enabled' to 'false'. 
  
+
+* Remote running
+
+start hub: 
+
+\\klippert_epamEvents\epam.events.web\src\main\resources> java -jar selenium-server-standalone-3.149.59.jar -role hub -port 4444
+
+then start node:
+
+java -Dwebdriver.chrome.driver="{your path to project}\klippert_epamEvents\epam.events.web\src\main\resources\chromedriver-92.0.4515.exe" -jar selenium-server-standalone-3.141.59.jar -role node -hub "http://localhost:4444/grid/register/"
+
+or
+
+java -Dwebdriver.chrome.driver="{your path to project}\klippert_epamEvents\epam.events.web\src\main\resources\chromedriver-92.0.4515.exe" -jar selenium-server-standalone-3.141.59.jar -role node -hub "http://localhost:4444/grid/register/" -browser browserName="chrome",version="92.0.4515",platform="WIN10"
