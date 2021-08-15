@@ -30,8 +30,7 @@ public class PastEventsTest extends BaseTest {
         EventsPage eventsPage = mainPage.goToEvents();
         eventsPage.getEventTabsListElements().clickPastEventsBtn();
         List<WebElement> eventCardsList = eventsPage.getAllEventCards();
-
-        //todo потом подумать, возможно здесь заменить на софт-ассерт
+        
         for (int i = 0; i < eventCardsList.size(); i++) {
             var eventCardElement = eventsPage.getEventCardElement(eventCardsList.get(i));
             Assertions.assertTrue(eventCardElement.isDisplayedLanguage());
