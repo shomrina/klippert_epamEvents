@@ -11,10 +11,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
+/**
+ * TalksLibraryTest class for testing features linked with talks library
+ */
+@Epic("Epam Events")
+@Feature("Talks library")
 public class TalksLibraryTest extends  BaseTest {
 
-    @Epic("Epam Events")
-    @Feature("Talks library")
     @Story("Filter talks by category, locations and language")
     @Description("Filter talks by category, locations and language and verify that the result list of talks card matches the filter value")
     @Test
@@ -47,8 +50,6 @@ public class TalksLibraryTest extends  BaseTest {
         }
     }
 
-    @Epic("Epam Events")
-    @Feature("Talks library")
     @Story("Search talks events by key word")
     @Description("Search talks events by key word and verify that the talk's name contains the key word")
     @Test

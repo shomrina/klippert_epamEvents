@@ -20,6 +20,7 @@ mvn clean test -Dbrowser="chrome" -Doptions="start-maximized incognito headless"
 mvn clean test -Dbrowser="chrome" -Doptions="start-maximized" -Dparallel="false"
 
 Also, you can run just use command: mvn clean test
+
 in this case tests will run with default options: 
 browser = chrome, options = start-maximized, parallel = true.
 You can change it in the pom-file in the 'properties' section.

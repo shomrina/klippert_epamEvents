@@ -16,16 +16,16 @@ import java.util.List;
 /**
  * PastEventsTest class for testing features linked with past events
  */
+@Epic("Epam Events")
+@Feature("Past events")
 public class PastEventsTest extends BaseTest {
 
-    @Epic("Epam Events")
-    @Feature("Past events")
     @Story("View past events")
     @Description("View past events and verify that the main information is displayed and contains not null text")
     @Test
     @DisplayName("View past events")
     public void viewPastEvents() {
-        MainPage mainPage = new MainPage(driver);
+       MainPage mainPage = new MainPage(driver);
         mainPage.openMainPage();
         EventsPage eventsPage = mainPage.goToEvents();
         eventsPage.getEventTabsListElements().clickPastEventsBtn();
@@ -46,8 +46,6 @@ public class PastEventsTest extends BaseTest {
         }
     }
 
-    @Epic("Epam Events")
-    @Feature("Past events")
     @Story("View past events in Canada")
     @Description("View past events and verify that displayed number of past events on the button matches number of cards event displayed on the page")
     @Test

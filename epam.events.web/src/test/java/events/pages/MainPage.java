@@ -22,11 +22,10 @@ public class MainPage extends AbstractPage {
     }
 
     @Step("Open main page")
-    public MainPage openMainPage() {
+    public void openMainPage() {
         driver.get(baseUrl);
         log.info("Open main page");
         closeCookieBanner();
-        return new MainPage(driver);
     }
 
     @Step("Close cookie banner")

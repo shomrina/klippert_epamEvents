@@ -20,7 +20,6 @@ public abstract class AbstractPage {
     private Logger log = LogManager.getLogger(AbstractPage.class);
 
     /** Common locators of web elements using on the each page */
-
     private By eventsBtnLocator = By.cssSelector("a[href='/events']");
     private By loaderLocator = By.cssSelector("div.evnt-global-loader");
     private By videoBtnLocator = By.cssSelector("a[href*='/video']");
@@ -48,25 +47,13 @@ public abstract class AbstractPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public WebElement waitVisibilityOf(WebElement webElement, int timeInSec){
-        WebDriverWait wait = new WebDriverWait(driver, timeInSec,20);
-        return wait.until(ExpectedConditions.visibilityOf(webElement));
-    }
-
-    public Boolean waitInvisibilityOf(WebElement webElement, int timeInSec) {
-        WebDriverWait wait = new WebDriverWait(driver, timeInSec);
-        return wait.until(ExpectedConditions.invisibilityOf(webElement));
+    public Boolean waitInvisibilityOfElementLocated(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, 5, 20);
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     public void  waitLoaderBecameInvisible() {
-        if (getLoader().isDisplayed()) {
-            log.debug("loader detected");
-            waitInvisibilityOf(getLoader(), 10);
-        }
-    }
-
-    public WebElement getLoader() {
-        return getWebElement(loaderLocator);
+        waitInvisibilityOfElementLocated(loaderLocator);
     }
 
     /** Methods for common activities or interaction with web elements using on the each page  */

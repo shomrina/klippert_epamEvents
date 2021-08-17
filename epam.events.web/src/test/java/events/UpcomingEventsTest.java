@@ -21,12 +21,12 @@ import static events.util.DateHelper.splitPeriodOnDate;
 /**
  * UpcomingEventsTest class for testing features linked with upcoming events
  */
+@Epic("Epam Events")
+@Feature("Upcoming events")
 public class UpcomingEventsTest extends BaseTest {
 
     private Logger log = LogManager.getLogger(UpcomingEventsTest.class);
 
-    @Epic("Epam Events")
-    @Feature("Upcoming events")
     @Story("View upcoming events")
     @Description("View upcoming events and verify that displayed number of events on the button matches number of cards event displayed on the page")
     @Test
@@ -41,8 +41,6 @@ public class UpcomingEventsTest extends BaseTest {
         Assertions.assertEquals(eventCards.size(), expectedCount);
     }
 
-    @Epic("Epam Events")
-    @Feature("Upcoming events")
     @Story("View upcoming event's date")
     @Description("View upcoming events and verify that date of events more or equal then current day, or verify that the current date is between the event period")
     @Test

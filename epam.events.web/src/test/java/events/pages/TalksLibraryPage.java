@@ -4,11 +4,13 @@ import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.security.Key;
 import java.util.List;
 
 /**
@@ -87,13 +89,14 @@ public class TalksLibraryPage extends AbstractPage {
     }
 
     @Step("search by key word {keyword}")
-    public void searchByKeyword(String keyword) throws InterruptedException {
+    public TalksLibraryPage searchByKeyword(String keyword) throws InterruptedException {
         waitElementToBeClickable(searchFilterLocator, 5);
         getWebElement(searchFilterLocator).sendKeys(keyword);
-        waitVisibilityOf(getLoader(), 2);
+        getWebElement(searchFilterLocator).sendKeys(Keys.ENTER);
         waitLoaderBecameInvisible();
         Thread.sleep(2000);
         log.info("Search by value = {}", keyword);
+        return this;
     }
 
     @Step("Get event talk card's name")
