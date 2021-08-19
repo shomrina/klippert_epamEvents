@@ -25,12 +25,12 @@ public class PastEventsTest extends BaseTest {
     @Test
     @DisplayName("View past events")
     public void viewPastEvents() {
-       MainPage mainPage = new MainPage(driver);
+        MainPage mainPage = new MainPage(driver);
         mainPage.openMainPage();
         EventsPage eventsPage = mainPage.goToEvents();
         eventsPage.getEventTabsListElements().clickPastEventsBtn();
         List<WebElement> eventCardsList = eventsPage.getAllEventCards();
-        
+
         for (int i = 0; i < eventCardsList.size(); i++) {
             var eventCardElement = eventsPage.getEventCardElement(eventCardsList.get(i));
             Assertions.assertTrue(eventCardElement.isDisplayedLanguage());

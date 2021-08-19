@@ -25,6 +25,7 @@ public class MainPage extends AbstractPage {
     public void openMainPage() {
         driver.get(baseUrl);
         log.info("Open main page");
+        waitElementToBeClickable(eventsBtnLocator, 5);
         closeCookieBanner();
     }
 

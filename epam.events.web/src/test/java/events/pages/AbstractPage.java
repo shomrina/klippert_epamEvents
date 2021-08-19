@@ -20,7 +20,7 @@ public abstract class AbstractPage {
     private Logger log = LogManager.getLogger(AbstractPage.class);
 
     /** Common locators of web elements using on the each page */
-    private By eventsBtnLocator = By.cssSelector("a[href='/events']");
+    protected By eventsBtnLocator = By.cssSelector("a[href='/events']");
     private By loaderLocator = By.cssSelector("div.evnt-global-loader");
     private By videoBtnLocator = By.cssSelector("a[href*='/video']");
 
