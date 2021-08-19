@@ -14,8 +14,8 @@ public class MainPage extends AbstractPage {
 
     private String baseUrl = "https://events.epam.com/";
 
-    private By cookieBannerLocator = By.id("onetrust-banner-sdk");
-    private By acceptCookieBtn = By.id("onetrust-accept-btn-handler");
+    private By cookieBannerLocator = By.cssSelector("div[id='onetrust-banner-sdk']");
+    private By acceptCookieBtn = By.cssSelector("button[id='onetrust-accept-btn-handler']");
 
     public MainPage(WebDriver driver) {
         super(driver);
